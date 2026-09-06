@@ -93,7 +93,6 @@
 	$paging_group_announcement_recording_uuid = '';
 	$paging_group_caller_id_name = '';
 	$paging_group_caller_id_number = '';
-	$paging_group_sound = '';
 	$paging_group_delay = '';
 	$paging_group_destination_status = '';
 	$paging_group_hangup_all = 'true';
@@ -116,7 +115,6 @@
 		$paging_group_destinations = $_POST["paging_group_destinations"] ?? null;
 		$paging_group_caller_id_name = $_POST["paging_group_caller_id_name"] ?? null;
 		$paging_group_caller_id_number = $_POST["paging_group_caller_id_number"] ?? null;
-		$paging_group_sound = $_POST["paging_group_sound"] ?? null;
 		$paging_group_delay = $_POST["paging_group_delay"] ?? null;
 		$paging_group_destination_status = $_POST["paging_group_destination_status"] ?? null;
 		$paging_group_hangup_all = $_POST["paging_group_hangup_all"] ?? null;
@@ -182,7 +180,6 @@
 			//if (strlen($paging_group_destinations) == 0) { $msg .= $text['message-required']." ".$text['label-paging_group_destinations']."<br>\n"; }
 			//if (strlen($paging_group_caller_id_name) == 0) { $msg .= $text['message-required']." ".$text['label-paging_group_caller_id_name']."<br>\n"; }
 			//if (strlen($paging_group_caller_id_number) == 0) { $msg .= $text['message-required']." ".$text['label-paging_group_caller_id_number']."<br>\n"; }
-			//if (strlen($paging_group_sound) == 0) { $msg .= $text['message-required']." ".$text['label-paging_group_sound']."<br>\n"; }
 			//if (strlen($paging_group_delay) == 0) { $msg .= $text['message-required']." ".$text['label-paging_group_delay']."<br>\n"; }
 			//if (strlen($paging_group_destination_status) == 0) { $msg .= $text['message-required']." ".$text['label-paging_group_destination_status']."<br>\n"; }
 			//if (strlen($paging_group_hangup_all) == 0) { $msg .= $text['message-required']." ".$text['label-paging_group_hangup_all']."<br>\n"; }
@@ -293,7 +290,6 @@
 			$array['paging_groups'][0]['paging_group_announcement_recording_uuid'] = is_uuid($paging_group_announcement_recording_uuid) ? $paging_group_announcement_recording_uuid : null;
 			$array['paging_groups'][0]['paging_group_caller_id_name'] = $paging_group_caller_id_name;
 			$array['paging_groups'][0]['paging_group_caller_id_number'] = $paging_group_caller_id_number;
-			$array['paging_groups'][0]['paging_group_sound'] = $paging_group_sound;
 			$array['paging_groups'][0]['paging_group_delay'] = $paging_group_delay;
 			$array['paging_groups'][0]['paging_group_destination_status'] = $paging_group_destination_status;
 			$array['paging_groups'][0]['paging_group_hangup_all'] = $paging_group_hangup_all;
@@ -367,7 +363,6 @@
 		$sql .= " paging_group_announcement_recording_uuid, ";
 		$sql .= " paging_group_caller_id_name, ";
 		$sql .= " paging_group_caller_id_number, ";
-		$sql .= " paging_group_sound, ";
 		$sql .= " paging_group_delay , ";
 		$sql .= " paging_group_destination_status , ";
 		$sql .= " paging_group_hangup_all , ";
@@ -391,7 +386,6 @@
 			$paging_group_announcement_recording_uuid = $row["paging_group_announcement_recording_uuid"];
 			$paging_group_caller_id_name = $row["paging_group_caller_id_name"];
 			$paging_group_caller_id_number = $row["paging_group_caller_id_number"];
-			$paging_group_sound = $row["paging_group_sound"];
 			$paging_group_delay = $row["paging_group_delay"];
 			$paging_group_destination_status = $row["paging_group_destination_status"];
 			$paging_group_hangup_all = $row["paging_group_hangup_all"];
