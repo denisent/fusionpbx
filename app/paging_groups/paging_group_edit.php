@@ -19,8 +19,8 @@
 	Mark J Crane <markjcrane@fusionpbx.com>
 	Portions created by the Initial Developer are Copyright (C) 2026
 	the Initial Developer. All Rights Reserved.
-  
-  Contributor(s):
+
+	Contributor(s):
 	Mark J Crane <markjcrane@fusionpbx.com>
 	denisent dev team
 */
@@ -544,7 +544,7 @@
 	echo "	".$text['label-paging_group_extension']."\n";
 	echo "</td>\n";
 	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	echo "	<input class='formfld' type='text' name='paging_group_extension' maxlength='255' value='".escape($paging_group_extension)."'>\n";
+	echo "	<input class='formfld' type='text' name='paging_group_extension' maxlength='255' value='".escape($paging_group_extension)."' required='required' placeholder='".escape($settings->get('paging_groups', 'extension_range', '') ?? '')."'>\n";
 	echo "<br />\n";
 	echo $text['description-paging_group_extension']."\n";
 	echo "</td>\n";
@@ -863,17 +863,6 @@
 		echo "</td>\n";
 		echo "</tr>\n";
 	}
-
-	// echo "<tr>\n";
-	// echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
-	// echo "	".$text['label-paging_group_sound']."\n";
-	// echo "</td>\n";
-	// echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	// echo "	<input class='formfld' type='text' name='paging_group_sound' maxlength='255' value='".escape($paging_group_sound)."'>\n";
-	// echo "<br />\n";
-	// echo $text['description-paging_group_sound']."\n";
-	// echo "</td>\n";
-	// echo "</tr>\n";
 
 	if (permission_exists('paging_group_delay')) {
 		echo "<tr>\n";
