@@ -24,6 +24,17 @@
 		$apps[$x]['destinations'][$y]['select_label']['dialplan_detail_data'] = "concat(paging_group_name, ' ', paging_group_extension)";
 		$y++;
 
+	//default settings
+		$y = 0;
+		$apps[$x]['default_settings'][$y]['default_setting_uuid'] = "8f5c3d4a-2a15-4a2e-96c8-0f1f70b47001";
+		$apps[$x]['default_settings'][$y]['default_setting_category'] = "paging_groups";
+		$apps[$x]['default_settings'][$y]['default_setting_subcategory'] = "extension_range";
+		$apps[$x]['default_settings'][$y]['default_setting_name'] = "text";
+		$apps[$x]['default_settings'][$y]['default_setting_value'] = "400-499";
+		$apps[$x]['default_settings'][$y]['default_setting_enabled'] = "false";
+		$apps[$x]['default_settings'][$y]['default_setting_description'] = "Set the suggested extension range(s) for paging groups.";
+		$y++;
+
 	//permission details
 		$y = 0;
 		$apps[$x]['permissions'][$y]['name'] = "paging_group_view";
