@@ -149,7 +149,6 @@
 	$sql .= "paging_group_pin_number, ";
 	$sql .= "paging_group_caller_id_name, ";
 	$sql .= "paging_group_caller_id_number, ";
-	$sql .= "paging_group_sound, ";
 	$sql .= "cast(paging_group_delay as text), ";
 	$sql .= "paging_group_type, ";
 	$sql .= "cast(paging_group_destination_status as text), ";
