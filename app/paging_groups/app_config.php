@@ -153,11 +153,6 @@
 		$apps[$x]['db'][$y]['fields'][$z]['search_by'] = "1";
 		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Set the paging caller ID number.";
 		$z++;
-		$apps[$x]['db'][$y]['fields'][$z]['name'] = "paging_group_sound";
-		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
-		$apps[$x]['db'][$y]['fields'][$z]['search_by'] = "";
-		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "Select the sound.";
-		$z++;
 		$apps[$x]['db'][$y]['fields'][$z]['name'] = "paging_group_delay";
 		$apps[$x]['db'][$y]['fields'][$z]['type'] = "boolean";
 		$apps[$x]['db'][$y]['fields'][$z]['toggle'] = ['true','false'];
