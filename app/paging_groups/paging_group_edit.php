@@ -603,27 +603,31 @@
 	echo "</td>\n";
 	echo "</tr>\n";
 
-	echo "<tr>\n";
-	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
-	echo "	".$text['label-paging_group_caller_id_name']."\n";
-	echo "</td>\n";
-	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	echo "	<input class='formfld' type='text' name='paging_group_caller_id_name' maxlength='255' value='".escape($paging_group_caller_id_name)."'>\n";
-	echo "<br />\n";
-	echo $text['description-paging_group_caller_id_name']."\n";
-	echo "</td>\n";
-	echo "</tr>\n";
+	if (permission_exists('paging_group_caller_id_name')) {
+		echo "<tr>\n";
+		echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
+		echo "	".$text['label-paging_group_caller_id_name']."\n";
+		echo "</td>\n";
+		echo "<td class='vtable' style='position: relative;' align='left'>\n";
+		echo "	<input class='formfld' type='text' name='paging_group_caller_id_name' maxlength='255' value='".escape($paging_group_caller_id_name)."'>\n";
+		echo "<br />\n";
+		echo $text['description-paging_group_caller_id_name']."\n";
+		echo "</td>\n";
+		echo "</tr>\n";
+	}
 
-	echo "<tr>\n";
-	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
-	echo "	".$text['label-paging_group_caller_id_number']."\n";
-	echo "</td>\n";
-	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	echo "	<input class='formfld' type='text' name='paging_group_caller_id_number' maxlength='255' value='".escape($paging_group_caller_id_number)."'>\n";
-	echo "<br />\n";
-	echo $text['description-paging_group_caller_id_number']."\n";
-	echo "</td>\n";
-	echo "</tr>\n";
+	if (permission_exists('paging_group_caller_id_number')) {
+		echo "<tr>\n";
+		echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
+		echo "	".$text['label-paging_group_caller_id_number']."\n";
+		echo "</td>\n";
+		echo "<td class='vtable' style='position: relative;' align='left'>\n";
+		echo "	<input class='formfld' type='text' name='paging_group_caller_id_number' maxlength='255' value='".escape($paging_group_caller_id_number)."'>\n";
+		echo "<br />\n";
+		echo $text['description-paging_group_caller_id_number']."\n";
+		echo "</td>\n";
+		echo "</tr>\n";
+	}
 
 	// echo "<tr>\n";
 	// echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
@@ -636,26 +640,28 @@
 	// echo "</td>\n";
 	// echo "</tr>\n";
 
-	echo "<tr>\n";
-	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
-	echo "	".$text['label-paging_group_delay']."\n";
-	echo "</td>\n";
-	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	if ($input_toggle_style_switch) {
-		echo "	<span class='switch'>\n";
+	if (permission_exists('paging_group_delay')) {
+		echo "<tr>\n";
+		echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
+		echo "	".$text['label-paging_group_delay']."\n";
+		echo "</td>\n";
+		echo "<td class='vtable' style='position: relative;' align='left'>\n";
+		if ($input_toggle_style_switch) {
+			echo "	<span class='switch'>\n";
+		}
+		echo "	<select class='formfld' id='paging_group_delay' name='paging_group_delay'>\n";
+		echo "		<option value='true' ".($paging_group_delay == true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
+		echo "		<option value='false' ".($paging_group_delay == false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
+		echo "	</select>\n";
+		if ($input_toggle_style_switch) {
+			echo "		<span class='slider'></span>\n";
+			echo "	</span>\n";
+		}
+		echo "<br />\n";
+		echo $text['description-paging_group_delay']."\n";
+		echo "</td>\n";
+		echo "</tr>\n";
 	}
-	echo "	<select class='formfld' id='paging_group_delay' name='paging_group_delay'>\n";
-	echo "		<option value='true' ".($paging_group_delay == true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
-	echo "		<option value='false' ".($paging_group_delay == false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
-	echo "	</select>\n";
-	if ($input_toggle_style_switch) {
-		echo "		<span class='slider'></span>\n";
-		echo "	</span>\n";
-	}
-	echo "<br />\n";
-	echo $text['description-paging_group_delay']."\n";
-	echo "</td>\n";
-	echo "</tr>\n";
 
 	echo "<tr>\n";
 	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
@@ -678,47 +684,51 @@
 	echo "</td>\n";
 	echo "</tr>\n";
 
-	echo "<tr>\n";
-	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
-	echo "	".$text['label-paging_group_destination_status']."\n";
-	echo "</td>\n";
-	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	if ($input_toggle_style_switch) {
-		echo "	<span class='switch'>\n";
+	if (permission_exists('paging_group_destination_status')) {
+		echo "<tr>\n";
+		echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
+		echo "	".$text['label-paging_group_destination_status']."\n";
+		echo "</td>\n";
+		echo "<td class='vtable' style='position: relative;' align='left'>\n";
+		if ($input_toggle_style_switch) {
+			echo "	<span class='switch'>\n";
+		}
+		echo "	<select class='formfld' id='paging_group_destination_status' name='paging_group_destination_status'>\n";
+		echo "		<option value='true' ".($paging_group_destination_status == true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
+		echo "		<option value='false' ".($paging_group_destination_status == false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
+		echo "	</select>\n";
+		if ($input_toggle_style_switch) {
+			echo "		<span class='slider'></span>\n";
+			echo "	</span>\n";
+		}
+		echo "<br />\n";
+		echo $text['description-paging_group_destination_status']."\n";
+		echo "</td>\n";
+		echo "</tr>\n";
 	}
-	echo "	<select class='formfld' id='paging_group_destination_status' name='paging_group_destination_status'>\n";
-	echo "		<option value='true' ".($paging_group_destination_status == true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
-	echo "		<option value='false' ".($paging_group_destination_status == false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
-	echo "	</select>\n";
-	if ($input_toggle_style_switch) {
-		echo "		<span class='slider'></span>\n";
-		echo "	</span>\n";
-	}
-	echo "<br />\n";
-	echo $text['description-paging_group_destination_status']."\n";
-	echo "</td>\n";
-	echo "</tr>\n";
 
-	echo "<tr>\n";
-	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
-	echo "	".$text['label-paging_group_hangup_all']."\n";
-	echo "</td>\n";
-	echo "<td class='vtable' style='position: relative;' align='left'>\n";
-	if ($input_toggle_style_switch) {
-		echo "	<span class='switch'>\n";
+	if (permission_exists('paging_group_hangup_all')) {
+		echo "<tr>\n";
+		echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
+		echo "	".$text['label-paging_group_hangup_all']."\n";
+		echo "</td>\n";
+		echo "<td class='vtable' style='position: relative;' align='left'>\n";
+		if ($input_toggle_style_switch) {
+			echo "	<span class='switch'>\n";
+		}
+		echo "	<select class='formfld' id='paging_group_hangup_all' name='paging_group_hangup_all'>\n";
+		echo "		<option value='true' ".($paging_group_hangup_all == true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
+		echo "		<option value='false' ".($paging_group_hangup_all == false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
+		echo "	</select>\n";
+		if ($input_toggle_style_switch) {
+			echo "		<span class='slider'></span>\n";
+			echo "	</span>\n";
+		}
+		echo "<br />\n";
+		echo $text['description-paging_group_hangup_all']."\n";
+		echo "</td>\n";
+		echo "</tr>\n";
 	}
-	echo "	<select class='formfld' id='paging_group_hangup_all' name='paging_group_hangup_all'>\n";
-	echo "		<option value='true' ".($paging_group_hangup_all == true ? "selected='selected'" : null).">".$text['option-true']."</option>\n";
-	echo "		<option value='false' ".($paging_group_hangup_all == false ? "selected='selected'" : null).">".$text['option-false']."</option>\n";
-	echo "	</select>\n";
-	if ($input_toggle_style_switch) {
-		echo "		<span class='slider'></span>\n";
-		echo "	</span>\n";
-	}
-	echo "<br />\n";
-	echo $text['description-paging_group_hangup_all']."\n";
-	echo "</td>\n";
-	echo "</tr>\n";
 
 	echo "<tr>\n";
 	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
