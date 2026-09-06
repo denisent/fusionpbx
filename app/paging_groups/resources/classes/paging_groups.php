@@ -25,7 +25,7 @@
 */
 
 /**
- * paging_groups class
+ * paging class
  *
  * @method null delete
  * @method null toggle
@@ -37,6 +37,7 @@ if (!class_exists('paging_groups')) {
 		/**
 		* declare the variables
 		*/
+		private $database;
 		private $app_name;
 		private $app_uuid;
 		private $name;
@@ -50,15 +51,19 @@ if (!class_exists('paging_groups')) {
 		 * called when the object is created
 		 */
 		public function __construct() {
+			//connnect to the database
+			$this->database = database::new();
+
 			//assign the variables
-				$this->app_name = 'paging';
-				$this->app_uuid = 'bae044dd-e773-471c-a890-5220ebca3bc9';
-				$this->name = 'paging';
-				$this->table = 'paging';
-				$this->toggle_field = 'paging_enabled';
-				$this->toggle_values = ['true','false'];
-				$this->description_field = 'paging_description';
-				$this->location = 'paging.php';
+			$this->app_name = 'paging_groups';
+			$this->app_uuid = 'bae044dd-e773-471c-a890-5220ebca3bc9';
+			$this->name = 'paging_groups';
+			$this->table = 'paging_groups';
+			$this->toggle_field = 'paging_group_enabled';
+			$this->toggle_values = ['true','false'];
+			$this->description_field = 'paging_group_description';
+			$this->location = 'paging_groups.php';
+
 		}
 
 		/**
@@ -75,7 +80,7 @@ if (!class_exists('paging_groups')) {
 		 * delete rows from the database
 		 */
 		public function delete($records) {
-			if (permission_exists($this->name.'_delete')) {
+			if (permission_exists('paging_group_delete')) {
 
 				//add multi-lingual support
 					$language = new text;
@@ -95,25 +100,22 @@ if (!class_exists('paging_groups')) {
 							$x = 0;
 							foreach ($records as $record) {
 								//add to the array
-									if ($record['checked'] == 'true' && is_uuid($record['uuid'])) {
-										$array[$this->table][$x][$this->name.'_uuid'] = $record['uuid'];
-									}
+								if ($record['checked'] == 'true' && is_uuid($record['uuid'])) {
+									$array[$this->table][$x]['paging_group_uuid'] = $record['uuid'];
+								}
 
 								//increment the id
-									$x++;
+								$x++;
 							}
 
 						//delete the checked rows
 							if (is_array($array) && @sizeof($array) != 0) {
 								//execute delete
-									$database = new database;
-									$database->app_name = $this->app_name;
-									$database->app_uuid = $this->app_uuid;
-									$database->delete($array);
-									unset($array);
+								$this->database->delete($array);
+								unset($array);
 
 								//set message
-									message::add($text['message-delete']);
+								message::add($text['message-delete']);
 							}
 							unset($records);
 					}
@@ -129,12 +131,7 @@ if (!class_exists('paging_groups')) {
 		 */
 		public function delete_destinations($records) {
 
-			//assign private variables
-			$this->permission_prefix = 'paging_destination_';
-			$this->table = 'paging_destinations';
-			$this->uuid_prefix = 'paging_destination_';
-
-			if (permission_exists($this->permission_prefix . 'delete')) {
+			if (permission_exists('paging_group_destination_delete')) {
 
 				//add multi-lingual support
 				$language = new text;
@@ -144,7 +141,7 @@ if (!class_exists('paging_groups')) {
 				$token = new token;
 				if (!$token->validate($_SERVER['PHP_SELF'])) {
 					message::add($text['message-invalid_token'], 'negative');
-					header('Location: ' . $this->list_page);
+					header('Location: ' . $this->location);
 					exit;
 				}
 
@@ -162,24 +159,19 @@ if (!class_exists('paging_groups')) {
 					if (!empty($uuids) && is_array($uuids) && @sizeof($uuids) != 0) {
 						$x = 0;
 						foreach ($uuids as $uuid) {
-							$array[$this->table][$x][$this->uuid_prefix . 'uuid'] = $uuid;
+							$array['paging_group_destinations'][$x]['paging_group_destination_uuid'] = $uuid;
 							$x++;
 						}
 					}
 
 					//delete the checked rows
 					if (!empty($array) && is_array($array) && @sizeof($array) != 0) {
-
 						//execute delete
-						$this->database = new database;
-						$this->database->app_name = $this->app_name;
-						$this->database->app_uuid = $this->app_uuid;
 						$this->database->delete($array);
 						unset($array);
 
 						//apply settings reminder
 						$_SESSION["reload_xml"] = true;
-
 					}
 					unset($records);
 				}
@@ -215,8 +207,7 @@ if (!class_exists('paging_groups')) {
 							if (is_array($uuids) && @sizeof($uuids) != 0) {
 								$sql = "select ".$this->name."_uuid as uuid, ".$this->toggle_field." as toggle from v_".$this->table." ";
 								$sql .= "where ".$this->name."_uuid in (".implode(', ', $uuids).") ";
-								$database = new database;
-								$rows = $database->select($sql, $parameters, 'all');
+								$rows = $this->database->select($sql, $parameters, 'all');
 								if (is_array($rows) && @sizeof($rows) != 0) {
 									foreach ($rows as $row) {
 										$states[$row['uuid']] = $row['toggle'];
@@ -229,24 +220,21 @@ if (!class_exists('paging_groups')) {
 							$x = 0;
 							foreach($states as $uuid => $state) {
 								//create the array
-									$array[$this->table][$x][$this->name.'_uuid'] = $uuid;
-									$array[$this->table][$x][$this->toggle_field] = $state == $this->toggle_values[0] ? $this->toggle_values[1] : $this->toggle_values[0];
+								$array[$this->table][$x][$this->name.'_uuid'] = $uuid;
+								$array[$this->table][$x][$this->toggle_field] = $state == $this->toggle_values[0] ? $this->toggle_values[1] : $this->toggle_values[0];
 
 								//increment the id
-									$x++;
+								$x++;
 							}
 
 						//save the changes
 							if (is_array($array) && @sizeof($array) != 0) {
 								//save the array
-									$database = new database;
-									$database->app_name = $this->app_name;
-									$database->app_uuid = $this->app_uuid;
-									$database->save($array);
-									unset($array);
+								$this->database->save($array);
+								unset($array);
 
 								//set message
-									message::add($text['message-toggle']);
+								message::add($text['message-toggle']);
 							}
 							unset($records, $states);
 					}
@@ -285,20 +273,19 @@ if (!class_exists('paging_groups')) {
 							if (is_array($uuids) && @sizeof($uuids) != 0) {
 								$sql = "select * from v_".$this->table." ";
 								$sql .= "where ".$this->name."_uuid in (".implode(', ', $uuids).") ";
-								$database = new database;
-								$rows = $database->select($sql, $parameters, 'all');
+								$rows = $this->database->select($sql, null, 'all');
 								if (is_array($rows) && @sizeof($rows) != 0) {
 									$x = 0;
 									foreach ($rows as $row) {
 										//copy data
-											$array[$this->table][$x] = $row;
+										$array[$this->table][$x] = $row;
 
 										//add copy to the description
-											$array[$this->table][$x][$this->name.'_uuid'] = uuid();
-											$array[$this->table][$x][$this->description_field] = trim($row[$this->description_field]).' ('.$text['label-copy'].')';
+										$array[$this->table][$x][$this->name.'_uuid'] = uuid();
+										$array[$this->table][$x][$this->description_field] = trim($row[$this->description_field]).' ('.$text['label-copy'].')';
 
 										//increment the id
-											$x++;
+										$x++;
 									}
 								}
 								unset($sql, $parameters, $rows, $row);
@@ -307,14 +294,11 @@ if (!class_exists('paging_groups')) {
 						//save the changes and set the message
 							if (is_array($array) && @sizeof($array) != 0) {
 								//save the array
-									$database = new database;
-									$database->app_name = $this->app_name;
-									$database->app_uuid = $this->app_uuid;
-									$database->save($array);
-									unset($array);
+								$this->database->save($array);
+								unset($array);
 
 								//set message
-									message::add($text['message-copy']);
+								message::add($text['message-copy']);
 							}
 							unset($records);
 					}
